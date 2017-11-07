@@ -1,0 +1,17 @@
+
+ body {
+     margin: 0 auto;
+     font: 14px/19px 'Lucida Grande', sans-serif;
+     background-color: white;
+ }
+ #container {
+    position: relative;
+    display: block;
+    width: 100vw;
+    height: 100vh;
+}
+ #canvas {
+     position: fixed;
+     display: inline-block;
+     z-index: 8;    /* position this canvas at bottom of the other one */
+ }
