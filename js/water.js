@@ -45,9 +45,10 @@ function init(){
 
     camera =  new Camera([0.0, 1.0, 0.0],[0.0, 1.0, 0.0],[0.0, 0.0, -1.0]);
     grid = new Grid("textures/waternormal3.jpg",gl);
-    skybox = new Skybox("textures/skybox/mountain/",gl);
+    skybox = new Skybox("textures/skybox/mountain-brun/",gl);
 
     gl.enable(gl.DEPTH_TEST);
+    gl.enable(gl.BLEND);
     gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight);
 
     tick();

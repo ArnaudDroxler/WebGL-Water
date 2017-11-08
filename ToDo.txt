@@ -1,17 +1,11 @@
 
 TODO
-regler les probleme de camera
-ajoute les controle a la souris
-generer un grid plan https://stackoverflow.com/questions/5915753/generate-a-plane-with-triangle-strips
-https://gamedev.stackexchange.com/questions/78014/how-to-create-a-regular-grid-of-triangles-correctly
 
-creer une classe pour le grid plan
-utiliser l trick pour la skybox
 trouver plusieur skybox
 mettre en place eclerage
 mix entre la reflection et la refraction
 faire defiler 2 norml texture dans 2 sens differeant
-
+gere comme il faut la normal map
 
 Classe de camera : OK
 Clean de skybox : OK

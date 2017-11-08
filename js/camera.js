@@ -1,7 +1,7 @@
 
 const YAW        = -90.0;
 const PITCH      =  0.0;
-const SPEED      =  0.005;
+const SPEED      =  0.0005;
 const SENSITIVTY =  0.5;
 
 class Camera {
