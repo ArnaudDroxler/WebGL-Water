@@ -3,12 +3,13 @@ TODO
 
 trouver plusieur skybox
 mettre en place eclerage
-mix entre la reflection et la refraction
+
 faire defiler 2 norml texture dans 2 sens differeant
-gere comme il faut la normal map
 
 Classe de camera : OK
 Clean de skybox : OK
 Clean et classe grid : OK
 Trick skybox : OK
 Generation de la grid : OK
+Mix entre la reflection et la refraction : OK
+Normal Map ajuste : OK

@@ -90,8 +90,11 @@
 
             // diffuse
             vec4 normalTex1 = texture2D(normalSampler, vec2(textureCoord.s + detalX/1024.0, textureCoord.t - detalX/1024.0));
-            //vec3 normalTex1 = texture2D(normalSampler, vec2(textureCoord.t, textureCoord.s)).rgb;
-            vec3 norm = normalize(vec3(normalTex1.r * 2.0 - 1.0, normalTex1.b,normalTex1.g*2.0-1.0));
+            vec3 normalTex2 = texture2D(normalSampler, vec2(textureCoord.t, textureCoord.s)).rgb;
+            vec3 normal1 = normalize(vec3(normalTex1.r * 2.0 - 1.0, normalTex1.b,normalTex1.g*2.0-1.0));
+            vec3 normal2 = normalize(vec3(normalTex2.r * 2.0 - 1.0, normalTex2.b,normalTex2.g*2.0-1.0));
+            vec3 norm = mix(normal1,normal2,0.2);
+
             //vec3 norm = normalize(normalTex1 * 2.0 - 1.0);
 
             //vec3 norm = normalize(vec3(0.0,1.0,0.0));
