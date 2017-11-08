@@ -82,7 +82,7 @@ class Grid{
 
     initBuffers() {
 
-        this.generateGrid(10);
+        this.generateGrid(100);
 
         this.vertexBuffer = this.gl.createBuffer();
         this.gl.bindBuffer(this.gl.ARRAY_BUFFER, this.vertexBuffer);
@@ -114,8 +114,8 @@ class Grid{
     }
 
     initMatrix(){
-        mat4.translate(this.model, this.model, [-5.0, 0.0, -5.0]);
-        mat4.scale(this.model,this.model,[1.0,0.0,1.0]);
+        mat4.translate(this.model, this.model, [-500.0, 0.0, -500.0]);
+        mat4.scale(this.model,this.model,[10.0,0.0,10.0]);
         mat3.normalFromMat4(this.normal, this.model);
     }
 
