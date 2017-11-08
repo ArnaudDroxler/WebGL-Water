@@ -78,64 +78,9 @@ class Grid{
                 i +=4;
             }
         }
-
-        /*gridSize += 1;
-        for(let x=0.0; x<gridSize; x+=1.0)
-        {
-            for (let z = 0.0; z < gridSize; z += 1.0)
-            {
-                this.vertex.push(x, 0.0, z);
-            }
-        }
-
-
-        for(let x=0.0; x<gridSize; x+=1.0)
-        {
-            for (let z=0.0; z < gridSize; z+=1.0)
-            {
-                this.texture.push( 0.0, 0.0);
-                this.texture.push( 1.0, 0.0);
-            }
-        }
-
-
-        for (let x=0.0; x < gridSize-1 ; x++)
-        {
-            for (let z=0.0; z < gridSize-1; z++)
-            {
-                let offset = x * gridSize + z;
-                this.index[i] = (offset);
-                this.index[i + 1] = (offset + 1);
-                this.index[i + 2] = (offset + gridSize);
-                this.index[i + 3] = (offset + 1);
-                this.index[i + 4] = (offset + gridSize + 1);
-                this.index[i + 5] = (offset + gridSize);
-                i += 6;
-            }
-        }*/
     }
 
     initBuffers() {
-
-        /*let vertex = [
-            -1.0, 0.0, -1.0,
-            1.0, 0.0, -1.0,
-            1.0, 0.0, 1.0,
-            -1.0, 0.0, 1.0
-        ];
-
-
-
-        let index = [
-
-        ];*/
-
-        let texture = [
-            0.0,  0.0,
-            1.0,  0.0,
-            1.0,  1.0,
-            0.0,  1.0,
-        ];
 
         this.generateGrid(10);
 
@@ -169,8 +114,8 @@ class Grid{
     }
 
     initMatrix(){
-        mat4.translate(this.model, this.model, [-500.0, 0.0, -1000.0]);
-        mat4.scale(this.model,this.model,[1000.0,0.0,1000.0]);
+        mat4.translate(this.model, this.model, [-5.0, 0.0, -5.0]);
+        mat4.scale(this.model,this.model,[1.0,0.0,1.0]);
         mat3.normalFromMat4(this.normal, this.model);
     }
 
@@ -178,7 +123,7 @@ class Grid{
         this.i < this.normalTex.image.height ? this.i += 1.0 : this.i = 0.0;
     }
 
-    draw(view,projection,skybox){
+    draw(view,projection,skybox,camera){
         this.shader.use();
 
         this.gl.enableVertexAttribArray(this.shader.aPosition);
@@ -188,7 +133,7 @@ class Grid{
         this.gl.uniform3fv(this.shader.lightDiffuse,[0.5, 0.5, 0.5]);
         this.gl.uniform3fv(this.shader.lightSpecular,[1.0, 1.0, 1.0]);
         this.gl.uniform3fv(this.shader.lightPosition, [20.0, 20.0, 20.0]);
-        this.gl.uniform3fv(this.shader.viewPos, [0.0, -5.0, -2.0]);
+        this.gl.uniform3fv(this.shader.viewPos, camera.Position);
 
         this.gl.uniformMatrix4fv(this.shader.matrixModel, false, this.model);
         this.gl.uniformMatrix4fv(this.shader.matrixView, false, view);

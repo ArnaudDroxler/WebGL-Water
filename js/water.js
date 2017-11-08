@@ -6,6 +6,14 @@ var camera = null;
 var skybox = null;
 var grid = null;
 
+var currentlyPressedKeys = {};
+
+var deltaTime = 0;
+var lastFrame = 0;
+
+var lastX = 0;
+var lastY = 0;
+
 window.onload = function() {
     canvas = document.getElementById('glcanvas');
     try {
@@ -17,6 +25,8 @@ window.onload = function() {
         canvas.height = displayHeight;
         gl.viewportWidth = displayWidth;
         gl.viewportHeight = displayHeight;
+        lastX = displayHeight/2;
+        lastY = displayWidth/2;
     }
     catch(e) {
     }
@@ -24,14 +34,17 @@ window.onload = function() {
         alert("Unable to initialize WebGL. Your browser may not support it.");
     }
 
+    document.onkeydown = handleKeyDown;
+    document.onkeyup = handleKeyUp;
+    document.onmousemove = handelMouse;
     init();
 
 };
 
 function init(){
 
-    camera =  new Camera([0.0, 1.0, 2.0],[0.0, 1.0, 0.0],[0.0, 0.0, -1.0]);
-    grid = new Grid("textures/waternormal1.jpg",gl);
+    camera =  new Camera([0.0, 1.0, 0.0],[0.0, 1.0, 0.0],[0.0, 0.0, -1.0]);
+    grid = new Grid("textures/waternormal3.jpg",gl);
     skybox = new Skybox("textures/skybox/mountain/",gl);
 
     gl.enable(gl.DEPTH_TEST);
@@ -42,7 +55,14 @@ function init(){
 
 function tick() {
     requestAnimFrame(tick);
+
+    let d = new Date();
+    let currentFrame = d.getTime();
+    deltaTime = currentFrame - lastFrame;
+    lastFrame = currentFrame;
+
     resizeCanvas();
+    handleKeys();
     animate();
     drawScene();
 }
@@ -51,16 +71,14 @@ function tick() {
 function drawScene(){
 
         var projection = mat4.create();
-        mat4.perspective(projection, degToRad(70),gl.viewportWidth / gl.viewportHeight, 0.01, 1000.0);
+        mat4.perspective(projection, degToRad(80),gl.viewportWidth / gl.viewportHeight, 0.01, 1000000.0);
 
-        var view = mat4.create();//camera.getViewMatrix();
-        mat4.translate(view, view, [0.0, -50.0, -20.0]);
-        mat4.rotateX(view, view, degToRad(20));
+        var view = camera.getViewMatrix();
 
         gl.clearColor(0.0, 0.0, 0.0, 1.0);
         gl.clear(gl.COLOR_BUFFER_BIT,gl.DEPTH_BUFFER_BIT);
 
-        grid.draw(view,projection,skybox);
+        grid.draw(view,projection,skybox,camera);
 
         skybox.draw(view,projection);
 
@@ -71,10 +89,10 @@ function animate() {
 }
 
 function resizeCanvas() {
-    var displayWidth = document.getElementById('container').clientWidth;
-    var displayHeight = document.getElementById('container').clientHeight;
+    let displayWidth = document.getElementById('container').clientWidth;
+    let displayHeight = document.getElementById('container').clientHeight;
 
-    if (gl.viewportWidth != displayWidth || gl.viewportHeight != displayHeight) {
+    if (gl.viewportWidth !== displayWidth || gl.viewportHeight !== displayHeight) {
         gl.viewportWidth = displayWidth;
         gl.viewportHeight = displayHeight;
         canvas.width = displayWidth;
@@ -86,13 +104,35 @@ function degToRad(degrees) {
     return (degrees * Math.PI / 180.0);
 }
 
-document.addEventListener('keydown', function(event) {
-    if(event.keyCode == 87) { //w
-        camera.processKeyboard(0,)
+function handleKeys() {
+    if ( currentlyPressedKeys[65]) { // A
+        camera.processKeyboard(2,deltaTime);
+    } else if (currentlyPressedKeys[68]) { // D
+        camera.processKeyboard(3,deltaTime);
+    } else if ( currentlyPressedKeys[87]) { // W
+        camera.processKeyboard(0,deltaTime);
+    } else if (currentlyPressedKeys[83]) { // S
+        camera.processKeyboard(1,deltaTime);
     }
-    else if(event.keyCode == 39) {
+}
 
-    }
-});
+function handleKeyDown(event) {
+    currentlyPressedKeys[event.keyCode] = true;
+}
+
+function handleKeyUp(event) {
+    currentlyPressedKeys[event.keyCode] = false;
+}
+
+function handelMouse(event) {
+
+    let xoffset = event.clientX - lastX;
+    let yoffset = lastY - event.clientY ;
+
+    lastX = event.clientX ;
+    lastY = event.clientY;
+
+    camera.processMouseMovement(xoffset, yoffset);
+}
 
 
