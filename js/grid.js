@@ -18,6 +18,7 @@ class Grid{
         this.indexBuffer = null;
 
         this.i = 0;
+        this.time = 0;
         this.texSize = 0;
 
         this.model = mat4.create();
@@ -49,15 +50,16 @@ class Grid{
         this.shader.normalTexture = this.gl.getUniformLocation(this.shader.get(), "normalSampler");
         this.shader.skyboxloc = this.gl.getUniformLocation(this.shader.get() , "skybox");
         this.shader.detalX = this.gl.getUniformLocation(this.shader.get(), "detalX");
+        this.shader.time = this.gl.getUniformLocation(this.shader.get(), "time");
 
     }
 
     generateGrid(gridSize){
 
         let i = 0;
-        for(let x=0.0; x<=gridSize; x+=1.0)
+        for(let x=0.0; x<gridSize; x+=1.0)
         {
-            for (let z = 0.0; z <=gridSize; z += 1.0)
+            for (let z = 0.0; z <gridSize; z += 1.0)
             {
                 this.vertex.push(x, 0.0, z);        //left upper
                 this.vertex.push(x+1.0, 0.0, z);
@@ -82,7 +84,7 @@ class Grid{
 
     initBuffers() {
 
-        this.generateGrid(100);
+        this.generateGrid(500);
 
         this.vertexBuffer = this.gl.createBuffer();
         this.gl.bindBuffer(this.gl.ARRAY_BUFFER, this.vertexBuffer);
@@ -115,12 +117,13 @@ class Grid{
 
     initMatrix(){
         mat4.translate(this.model, this.model, [-500.0, 0.0, -500.0]);
-        mat4.scale(this.model,this.model,[10.0,0.0,10.0]);
+        mat4.scale(this.model,this.model,[5.0,0.0,5.0]);
         mat3.normalFromMat4(this.normal, this.model);
     }
 
     animate() {
         this.i < this.normalTex.image.height ? this.i += 1.0 : this.i = 0.0;
+        this.time++;
     }
 
     draw(view,projection,skybox,camera){
@@ -141,6 +144,7 @@ class Grid{
         this.gl.uniformMatrix3fv(this.shader.matrixNormal, false, this.normal);
 
         this.gl.uniform1f(this.shader.detalX, this.i);
+        this.gl.uniform1f(this.shader.time, this.time*0.001);
 
         this.gl.activeTexture(this.gl.TEXTURE1);
         this.gl.bindTexture(this.gl.TEXTURE_2D, this.normalTex);

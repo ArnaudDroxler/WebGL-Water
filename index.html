@@ -33,7 +33,8 @@
              }
             </script>
             <script id="shader-vs" type="x-shader/x-vertex">
-
+            #define SCALE 50.0
+            
             attribute vec3 aPosition;
             //attribute vec3 aNormal;
             attribute vec2 aTexture;
@@ -46,12 +47,21 @@
             uniform mat4 view;
             uniform mat4 projection;
             uniform mat3 normal;
-            uniform float detalX;
+            uniform float time;
+
+
+            float calculateSurface(float x, float z) {
+                float y = 0.0;
+                y += (sin(x * 1.0 / SCALE + time * 1.0) + sin(x * 2.3 / SCALE + time * 1.5) + sin(x * 3.3 / SCALE + time * 0.4)) / 3.0;
+                y += (sin(z * 0.2 / SCALE + time * 1.8) + sin(z * 1.8 / SCALE + time * 1.8) + sin(z * 2.8 / SCALE + time * 0.8)) / 3.0;
+                return y;
+            }
 
             void main(){
                 fragPos = vec3(model * vec4(aPosition, 1.0));
-                //fragPos.y = sin(fragPos.x * 0.6 + float(detalX) * 0.2);
-                //normals = normal * aNormal;
+                float strength = 1.0;
+                fragPos.y += strength * calculateSurface(fragPos.x, fragPos.z);
+                //fragPos.y -= strength * calculateSurface(0.0, 0.0);
                 textureCoord = aTexture;
                 gl_Position = projection * view * vec4(fragPos, 1.0);
             }
@@ -78,7 +88,7 @@
             void main() {
 
 
-            float density = 0.02;
+            float density = 0.002;
 
             const float LOG2 = 1.442695;
             float z = gl_FragCoord.z / gl_FragCoord.w;
