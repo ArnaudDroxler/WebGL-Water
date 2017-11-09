@@ -43,7 +43,7 @@ window.onload = function() {
 
 function init(){
 
-    camera =  new Camera([0.0, 1.0, 0.0],[0.0, 1.0, 0.0],[0.0, 0.0, -1.0]);
+    camera =  new Camera([0.0, 5.0, 0.0],[0.0, 1.0, 0.0],[0.0, 0.0, -1.0]);
     grid = new Grid("textures/waternormal3.jpg",gl);
     skybox = new Skybox("textures/skybox/mountain-brun/",gl);
 
