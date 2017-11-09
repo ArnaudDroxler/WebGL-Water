@@ -61,7 +61,7 @@
                 fragPos = vec3(model * vec4(aPosition, 1.0));
                 float strength = 1.0;
                 fragPos.y += strength * calculateSurface(fragPos.x, fragPos.z);
-                //fragPos.y -= strength * calculateSurface(0.0, 0.0);
+                fragPos.y -= strength * calculateSurface(0.0, 0.0);
                 textureCoord = aTexture;
                 gl_Position = projection * view * vec4(fragPos, 1.0);
             }
