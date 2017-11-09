@@ -116,7 +116,7 @@ class Grid{
     }
 
     initMatrix(){
-        mat4.translate(this.model, this.model, [-500.0, 0.0, -500.0]);
+        mat4.translate(this.model, this.model, [-1000.0, 0.0, -1000.0]);
         mat4.scale(this.model,this.model,[5.0,0.0,5.0]);
         mat3.normalFromMat4(this.normal, this.model);
     }
