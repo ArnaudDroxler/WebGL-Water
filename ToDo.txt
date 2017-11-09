@@ -6,6 +6,10 @@ mettre en place eclerage
 
 faire defiler 2 norml texture dans 2 sens differeant
 
+pouvoir faire varier les vagues
+
+
+
 Classe de camera : OK
 Clean de skybox : OK
 Clean et classe grid : OK
