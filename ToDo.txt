@@ -9,6 +9,7 @@ faire defiler 2 norml texture dans 2 sens differeant
 pouvoir faire varier les vagues
 changer la couleur de l eau
 faire une classe pour la scene
+clean du code shader rename des variables
 
 
 Classe de camera : OK

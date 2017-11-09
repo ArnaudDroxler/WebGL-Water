@@ -14,6 +14,8 @@ var lastFrame = 0;
 var lastX = 0;
 var lastY = 0;
 
+var stats = null;
+
 window.onload = function() {
     canvas = document.getElementById('glcanvas');
     try {
@@ -33,6 +35,10 @@ window.onload = function() {
     if (!gl) {
         alert("Unable to initialize WebGL. Your browser may not support it.");
     }
+
+    stats = new Stats();
+    stats.showPanel(0); // 0: fps, 1: ms, 2: mb, 3+: custom
+    document.body.appendChild( stats.dom );
 
     document.onkeydown = handleKeyDown;
     document.onkeyup = handleKeyUp;
@@ -56,6 +62,7 @@ function init(){
 
 function tick() {
     requestAnimFrame(tick);
+    stats.begin();
 
     let d = new Date();
     let currentFrame = d.getTime();
@@ -66,6 +73,8 @@ function tick() {
     handleKeys();
     animate();
     drawScene();
+
+    stats.end();
 }
 
 
