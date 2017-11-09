@@ -16,6 +16,7 @@ var lastY = 0;
 
 var stats = null;
 
+
 window.onload = function() {
     canvas = document.getElementById('glcanvas');
     try {
@@ -43,6 +44,23 @@ window.onload = function() {
     document.onkeydown = handleKeyDown;
     document.onkeyup = handleKeyUp;
     document.onmousemove = handelMouse;
+
+    var FizzyText = function() {
+        this.message = 'dat.gui';
+        this.speed = 0.8;
+        this.displayOutline = false;
+        this.explode = function() { };
+    };
+
+
+    var text = new FizzyText();
+    var gui = new dat.GUI();
+    gui.add(text, 'message');
+    gui.add(text, 'speed', -5, 5);
+    gui.add(text, 'displayOutline');
+    gui.add(text, 'explode');
+
+
     init();
 
 };

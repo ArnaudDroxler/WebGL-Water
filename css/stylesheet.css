@@ -13,5 +13,4 @@
  #canvas {
      position: fixed;
      display: inline-block;
-     z-index: 8;    /* position this canvas at bottom of the other one */
  }
