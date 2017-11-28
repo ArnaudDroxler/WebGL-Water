@@ -37,6 +37,7 @@ window.onload = function() {
         alert("Unable to initialize WebGL. Your browser may not support it.");
     }
 
+    //stat.js
     stats = new Stats();
     stats.showPanel(0); // 0: fps, 1: ms, 2: mb, 3+: custom
     document.body.appendChild( stats.dom );
@@ -45,7 +46,8 @@ window.onload = function() {
     document.onkeyup = handleKeyUp;
     document.onmousemove = handelMouse;
 
-    var FizzyText = function() {
+    //dat.gui.js
+    /*var FizzyText = function() {
         this.message = 'dat.gui';
         this.speed = 0.8;
         this.displayOutline = false;
@@ -58,7 +60,7 @@ window.onload = function() {
     gui.add(text, 'message');
     gui.add(text, 'speed', -5, 5);
     gui.add(text, 'displayOutline');
-    gui.add(text, 'explode');
+    gui.add(text, 'explode');*/
 
 
     init();
@@ -69,7 +71,7 @@ function init(){
 
     camera =  new Camera([0.0, 2.0, 0.0],[0.0, 1.0, 0.0],[0.0, 0.0, -1.0]);
     grid = new Grid("textures/waternormal3.jpg",gl);
-    skybox = new Skybox("textures/skybox/mountain-brun/",gl);
+    skybox = new Skybox("textures/skybox/mountain/",gl);
 
     gl.enable(gl.DEPTH_TEST);
     gl.enable(gl.BLEND);
@@ -98,17 +100,17 @@ function tick() {
 
 function drawScene(){
 
-        var projection = mat4.create();
-        mat4.perspective(projection, degToRad(80),gl.viewportWidth / gl.viewportHeight, 0.01, 1000000.0);
+    let projection = mat4.create();
+    mat4.perspective(projection, degToRad(80),gl.viewportWidth / gl.viewportHeight, 0.01, 1000000.0);
 
-        var view = camera.getViewMatrix();
+    let view = camera.getViewMatrix();
 
-        gl.clearColor(0.0, 0.0, 0.0, 1.0);
-        gl.clear(gl.COLOR_BUFFER_BIT,gl.DEPTH_BUFFER_BIT);
+    gl.clearColor(0.0, 0.0, 0.0, 1.0);
+    gl.clear(gl.COLOR_BUFFER_BIT,gl.DEPTH_BUFFER_BIT);
 
-        grid.draw(view,projection,skybox,camera);
+    grid.draw(view,projection,skybox,camera);
 
-        skybox.draw(view,projection);
+    skybox.draw(view,projection);
 
 }
 

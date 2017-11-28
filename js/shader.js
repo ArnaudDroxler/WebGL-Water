@@ -4,29 +4,29 @@ class Shader {
     constructor(gl, vertexName, fragmentName) {
 
         this.gl = gl;
-        this.shader;
+        this.shader = null;
 
         this.init(vertexName,fragmentName);
     }
 
     getShader(id) {
-        var script = document.getElementById(id);
+        let script = document.getElementById(id);
         if (!script) {
             return null;
         }
 
-        var str = "";
-        var k = script.firstChild;
+        let str = "";
+        let k = script.firstChild;
         while (k) {
-            if (k.nodeType == 3) {
+            if (k.nodeType === 3) {
                 str += k.textContent;
             }
             k = k.nextSibling;
         }
-        var shader;
-        if (script.type == "x-shader/x-fragment") {
+        let shader;
+        if (script.type === "x-shader/x-fragment") {
             shader = this.gl.createShader(this.gl.FRAGMENT_SHADER);
-        } else if (script.type == "x-shader/x-vertex") {
+        } else if (script.type === "x-shader/x-vertex") {
             shader = this.gl.createShader(this.gl.VERTEX_SHADER);
         } else {
             return null;
@@ -44,8 +44,8 @@ class Shader {
 
     init(vertexName,fragmentName){
 
-        var vertexShader = this.getShader(vertexName);
-        var fragmentShader = this.getShader(fragmentName);
+        let vertexShader = this.getShader(vertexName);
+        let fragmentShader = this.getShader(fragmentName);
 
         this.shader = this.gl.createProgram();
         this.gl.attachShader(this.shader, vertexShader);
